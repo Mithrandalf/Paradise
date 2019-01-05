@@ -25,7 +25,6 @@
 	emote_see = list("chirrups")
 
 	response_help  = "pets"
-	response_disarm = "pushes"
 	response_harm   = "kicks"
 
 	melee_damage_lower = 5
@@ -42,7 +41,7 @@
 	holder_type = /obj/item/holder/diona
 	can_collar = TRUE
 
-	a_intent = INTENT_HELP
+	a_intent = INTENT_DISARM
 	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
@@ -101,7 +100,7 @@
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.
-	if(M.a_intent == INTENT_HELP)
+	if(M.a_intent == INTENT_DISARM)
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")

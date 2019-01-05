@@ -10,7 +10,14 @@
 		if(INTENT_GRAB)
 			grabbedby(M)
 
-		if(INTENT_HARM, INTENT_DISARM)
+		if(INTENT_DISARM)
+			if(!src.holder_type)
+				visible_message("<span class='notice'>[M] [response_disarm] [src].</span>")
+				push_aside(M, src)
+			else
+				return
+
+		if(INTENT_HARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
@@ -18,6 +25,19 @@
 			add_attack_logs(M, src, "Melee attacked with fists")
 			updatehealth()
 			return 1
+
+/mob/living/simple_animal/proc/push_aside(mob/living/carbon/human/M, mob/living/L)
+	switch(get_dir(M, L))
+		if(NORTH, SOUTH)
+			if(prob(50))
+				step(L, WEST)
+			else
+				step(L, EAST)
+		if(WEST, EAST)
+			if(prob(50))
+				step(L, NORTH)
+			else
+				step(L, SOUTH)
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)

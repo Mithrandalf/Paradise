@@ -20,6 +20,8 @@
 	environment_smash = 0
 	speak_emote = list("squeaks")
 	ventcrawler = 2
+	can_hide = 1
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	var/datum/mind/origin
 	var/egg_lain = 0
 

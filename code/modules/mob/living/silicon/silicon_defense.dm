@@ -55,6 +55,9 @@
 		if(INTENT_HELP)
 			M.visible_message("<span class='notice'>[M] pets [src]!</span>", \
 							"<span class='notice'>You pet [src]!</span>")
+		if(INTENT_DISARM)
+			if(src.holder_type)
+				get_scooped(M)
 		if("grab")
 			grabbedby(M)
 		else

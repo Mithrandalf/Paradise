@@ -17,7 +17,6 @@
 	health = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
 	response_harm   = "stamps on the"
 	density = 0
 	ventcrawler = 2
@@ -82,7 +81,7 @@
 		client.time_died_as_mouse = world.time
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
-	if(M.a_intent == INTENT_HELP)
+	if(M.a_intent == INTENT_DISARM)
 		get_scooped(M)
 	..()
 
@@ -153,7 +152,6 @@
 	name = "Tom"
 	desc = "Jerry the cat is not amused."
 	response_help  = "pets"
-	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
