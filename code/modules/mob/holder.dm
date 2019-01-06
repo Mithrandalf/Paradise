@@ -105,3 +105,14 @@
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
+
+/obj/item/holder/parrot
+	name = "parrot"
+	desc = "The parrot squaks, \"It's a Parrot! BAWWK!\""
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "parrot_sit"
+
+/obj/item/holder/parrot/poly
+	name = "poly"
+	desc = "Poly the Parrot. An expert on quantum cracker theory."
+	icon_state = "parrot_sit"

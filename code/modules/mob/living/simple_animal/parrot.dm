@@ -34,6 +34,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	can_collar = 1
+	holder_type = /obj/item/holder/parrot
 
 	var/list/clean_speak = list(
 		"Hi",
@@ -49,7 +50,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
 
 	response_help  = "pets the"
-	response_disarm = "gently moves aside the"
 	response_harm   = "swats the"
 	stop_automated_movement = 1
 	universal_speak = 1
@@ -82,12 +82,17 @@
 									/obj/machinery/dna_scannernew,		/obj/machinery/telecomms, 					/obj/machinery/washing_machine,\
 									/obj/machinery/nuclearbomb,			/obj/machinery/particle_accelerator, 		/obj/structure/reagent_dispensers,\
 									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, 				/obj/machinery/photocopier,\
-									/obj/machinery/computer,			/obj/structure/rack, 						/obj/machinery/disposal )
+									/obj/machinery/computer,			/obj/structure/rack, 						/obj/machinery/disposal,\
+									/obj/machinery/photocopier)
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
+/mob/living/simple_animal/parrot/attack_hand(mob/living/carbon/human/M as mob)
+	if(M.a_intent == INTENT_DISARM)
+		get_scooped(M)
+	..()
 
 /mob/living/simple_animal/parrot/New()
 	..()
@@ -681,6 +686,7 @@
 /mob/living/simple_animal/parrot/Poly
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
+	holder_type = /obj/item/holder/parrot/poly
 	clean_speak = list(
 		"Poly wanna cracker!",
 		"Check the singlo, you chucklefucks!",
