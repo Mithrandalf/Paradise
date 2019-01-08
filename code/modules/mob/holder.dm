@@ -4,6 +4,9 @@
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = SLOT_HEAD
+	var/mob/living/affecting = null
+	var/mob/living/carbon/user = null
+	var/atom/target = null
 
 /obj/item/holder/New()
 	..()
@@ -28,7 +31,34 @@
 
 /obj/item/holder/attackby(obj/item/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
-		M.attackby(W,user, params)
+		if((target == user) && checkvalid(user, M))
+			return
+		else
+			M.attackby(W,user, params)
+
+/obj/item/holder/attack(atom/target, mob/user, proximity, params)
+	. = ..()
+	return
+
+/obj/item/holder/proc/checkvalid(var/mob/attacker, var/mob/prey)
+	//var/obj/item/holder/valid = 0
+	if(ishuman(prey) && is_type_in_list(prey,  prey.dna.species.allowed_consumed_mobs))
+		return TRUE
+
+	return FALSE
+
+/obj/item/holder/proc/devour(var/mob/living/carbon/attacker, var/mob/prey)
+	if(checkvalid(attacker, prey)) //stops drask from eating mice
+		user.visible_message("<span class='danger'>[attacker] is attempting to devour \the [prey]!</span>")
+		do_after(prey, 20, 0, target = prey)
+		user.visible_message("<span class='danger'>[attacker] devours \the [prey]!</span>")
+		if(affecting.mind)
+			for(var/mob/M in src.contents)
+				add_attack_logs(attacker, prey, "Devoured")
+
+			prey.loc = attacker
+			attacker.stomach_contents.Add(prey)
+			qdel(src)
 
 /obj/item/holder/proc/show_message(var/message, var/m_type)
 	for(var/mob/living/M in contents)

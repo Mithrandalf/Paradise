@@ -34,6 +34,7 @@
 	icon_dead = "parrot_dead"
 	pass_flags = PASSTABLE
 	can_collar = 1
+	can_buckle = 0
 	holder_type = /obj/item/holder/parrot
 
 	var/list/clean_speak = list(
